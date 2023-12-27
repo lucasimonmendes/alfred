@@ -1,7 +1,7 @@
 use dialoguer::{Input, Select};
 use std::process::Command;
 use std::process;
-use std::io::{self, Write};
+use std::io::{Write};
 
 use crossterm::{
     execute,
@@ -11,23 +11,22 @@ use crossterm::{
 
 
 
-fn open_chrome(site: &String){
-
-    // println!("Site digitado: {}", site);
-
-    Command::new("Start-Process")
-            .arg("chrome")
-            .arg(site)
-            // .spawn()
-            .output()
-            .expect("Erro ao abrir o Google Chrome!");
-
-    process::exit(0);
-}
+// fn open_chrome(site: &String){
+//
+//     let browser = "chrome";
+//
+//     Command::new("Start-Process")
+//             .arg(browser)
+//             .arg(site)
+//             .spawn()
+//             .expect("Erro ao abrir o Google Chrome!");
+//
+//     // process::exit(0);
+// }
 
 fn open_project(project: &String){
 
-    let comand = r#"Start-Process nvim -Wait -WorkingDirectory"#;
+    let comand = r#"Start-Process nvim -WorkingDirectory"#;
 
     Command::new("powershell")
         .arg("/c")
@@ -36,7 +35,7 @@ fn open_project(project: &String){
         .output()
         .expect("Falha ao abrir o Projeto");
 
-    process::exit(0);
+    // process::exit(0);
 }
 
 
@@ -62,9 +61,9 @@ fn main() {
         println!("Olá, sou Alfred seu assistente pessoal, o que deseja?");
 
         let menu = Select::new()
-            .item("Abrir Chrome + Projeto")
+            // .item("Abrir Chrome + Projeto")
             .item("Abrir Projeto")
-            .item("Abrir Chrome")
+            // .item("Abrir Chrome")
             .item("Sair")
             .default(0)
             .interact()
@@ -74,47 +73,50 @@ fn main() {
         match menu {
         
             0 => {
-                // Solicita ao usuário o site para abrir o Chrome
-                let site: String = Input::new()
-                    .with_prompt("Digite o site para abrir no Chrome")
-                    .interact()
-                    .unwrap();
-
+                // // Solicita ao usuário o site para abrir o Chrome
+                // let site: String = Input::new()
+                //     .with_prompt("Digite o site para abrir no Chrome")
+                //     .interact()
+                //     .unwrap();
+                //
                 // Solicita ao usuário o projeto para abrir no LunarVim
                 let project: String = Input::new()
                     .with_prompt("Digite o caminho do projeto para abrir no NeoVim")
                     .interact()
                     .unwrap();
 
-                open_chrome(&site);
+                // open_chrome(&site);
                 open_project(&project);
 
             },
 
             1 => {
-                // Solicita ao usuário o projeto para abrir no LunarVim
-                let project: String = Input::new()
-                    .with_prompt("Digite o caminho do projeto para abrir no NeoVim")
-                    .interact()
-                    .unwrap();
+                // // Solicita ao usuário o projeto para abrir no LunarVim
+                // let project: String = Input::new()
+                //     .with_prompt("Digite o caminho do projeto para abrir no NeoVim")
+                //     .interact()
+                //     .unwrap();
+                //
+                // open_project(&project);
 
-                open_project(&project);
+                    println!("Encerrando a CLI...");
+                    process::exit(0);
             },
 
-            2 => {
-                // Solicita ao usuário o site para abrir o Chrome
-                let site: String = Input::new()
-                    .with_prompt("Digite o site para abrir no Chrome")
-                    .interact()
-                    .unwrap();
-
-                open_chrome(&site);
-            },
-            3 => {
-                // Saindo
-                println!("Encerrando a CLI...");
-                process::exit(0);
-            },
+            // 2 => {
+            //     // Solicita ao usuário o site para abrir o Chrome
+            //     let site: String = Input::new()
+            //         .with_prompt("Digite o site para abrir no Chrome")
+            //         .interact()
+            //         .unwrap();
+            //
+            //     open_chrome(&site);
+            // },
+            // 3 => {
+            //     // Saindo
+            //     println!("Encerrando a CLI...");
+            //     process::exit(0);
+            // },
             _ => println!("Escolha inválida"), 
         }
     }
