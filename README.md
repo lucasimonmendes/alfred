@@ -1,6 +1,2 @@
 # Alfred
-
-## O que falta
-[X] Fn `open_project`
-[ ] Fn `open_chrome`
-[X] menu
+The CLI that I use to start my workspace in Windows SO.
