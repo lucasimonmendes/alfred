@@ -11,25 +11,32 @@ use crossterm::{
 
 
 
-fn open_chrome(site: &str){
+fn open_chrome(site: &String){
 
-    println!("Site digitado: {}", site);
+    // println!("Site digitado: {}", site);
+
+    Command::new("Start-Process")
+            .arg("chrome")
+            .arg(site)
+            // .spawn()
+            .output()
+            .expect("Erro ao abrir o Google Chrome!");
+
+    process::exit(0);
 }
 
 fn open_project(project: &String){
 
+    let comand = r#"Start-Process nvim -Wait -WorkingDirectory"#;
 
     Command::new("powershell")
-        .args("/c")
-        .args(&format!("Start-Process nvim {} -Wait -NoNewWindow", &project))
+        .arg("/c")
+        .arg(comand)
+        .args(&[&format!("C:\\users\\lucas\\{}", &project)])
         .output()
         .expect("Falha ao abrir o Projeto");
 
-
-//     Command::new("nvim")
-//         .arg(" .")
-//         .spawn()
-//         .expect("Erro ao abrir o Neovim!");
+    process::exit(0);
 }
 
 
@@ -75,18 +82,19 @@ fn main() {
 
                 // Solicita ao usuário o projeto para abrir no LunarVim
                 let project: String = Input::new()
-                    .with_prompt("Digite o caminho do projeto para abrir no LunarVim")
+                    .with_prompt("Digite o caminho do projeto para abrir no NeoVim")
                     .interact()
                     .unwrap();
 
                 open_chrome(&site);
                 open_project(&project);
+
             },
 
             1 => {
                 // Solicita ao usuário o projeto para abrir no LunarVim
                 let project: String = Input::new()
-                    .with_prompt("Digite o caminho do projeto para abrir no LunarVim")
+                    .with_prompt("Digite o caminho do projeto para abrir no NeoVim")
                     .interact()
                     .unwrap();
 
